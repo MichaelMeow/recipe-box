@@ -1,21 +1,31 @@
 
-  <h1>
-    Welcome to your {{ title }}!
-  </h1>
-  <app-add-recipes></app-add-recipes>
-  <h3>Recipes:</h3>
+<h1>
+  Welcome to your {{ title }}!
+</h1>
+<div *ngIf="editVariable">
+  <input [(ngModel)]="editVariable.title">
+    <ul *ngFor="let ingredient of editVariable.ingredients;let index = index;trackBy:trackByIndex">
+      <input [(ngModel)]="editVariable.ingredients[index]">
+    </ul>
+  <input [(ngModel)]="editVariable.directions">
+  <button (click)="hideClick()" type="button" name="button">Done</button>
+</div>
+<h3>Recipes:</h3>
+
+<ul *ngFor="let recipe of recipesList">
+  <li (click)="onSelect(recipe)">{{recipe.title}}</li>
+</ul>
 
 <div *ngIf="selectedRecipe">
-  <ul *ngFor="let recipe of recipesList">
-    <li (click)="onSelect()">{{recipe.title}}</li>
-    <li>{{recipe.ingredients}}</li>
-    <li>{{recipe.directions}}</li>
+  <li>{{selectedRecipe.title}}</li>
+  <ul>Ingredients:
+    <li *ngFor="let ingredient of selectedRecipe.ingredients">{{ingredient}}</li>
   </ul>
+  <li>{{selectedRecipe.directions}}</li>
+  <button (click)="edit(selectedRecipe)" type="button" name="button">Edit</button>
+  <button (click)="hide()" type="button" name="button">Hide</button>
+
 </div>
-  <!-- <div *ngFor="let recipe of recipes">
-    <h2>{{recipe.title}}</h2>
-    <ul>
-      <li *ngFor="let ingredient of recipe.ingredients">{{ingredient}}</li>
-    </ul>
-    <p>{{recipe.directions}}</p>
-  </div> -->
+
+
+<app-add-recipes [data]="dataVariable"></app-add-recipes>

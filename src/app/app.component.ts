@@ -8,12 +8,26 @@ import { RECIPES } from './mock-recipes'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'Recipe Box';
   recipesList = RECIPES;
-
   selectedRecipe: Recipe;
-  onSelect(recipe: Recipe): void {
+  editVariable: Recipe;
+
+  onSelect(recipe): void {
     this.selectedRecipe = recipe;
+  }
+
+  hide(): void {
+    this.selectedRecipe = null;
+  }
+
+  edit(recipe): void {
+    this.editVariable = recipe;
+  }
+
+  hideClick(): void {
+    this.editVariable = null;
   }
 };
